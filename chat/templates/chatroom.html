@@ -1,7 +1,27 @@
 <html>
     <body>
+        <div id="user-hello">
+
+        </div>
         <h1>
             This is chatroom.html
         </h1>
+        {{room_name|json_script:"room_name"}}
+        <script>
+            const roomName = JSON.parse(document.getElementById('room_name').textContent);
+            const chatSocket = new WebSocket(
+                'ws://' +
+                window.location.host +
+                '/ws/chat/'+
+                room_name +
+                '/' 
+            );
+
+            chatSocket.onmessage = function(e){
+                const data = JSON.parse(e.data);
+                console.log(data);
+                document.getElementById('user-hello').innerHTML = data.tester;
+            }
+        </script>
     </body>
 </html>
