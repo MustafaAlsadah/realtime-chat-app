@@ -1,13 +1,32 @@
 <html>
     <body>
-        <div id="user-hello">
-
+        <div>
+            Room name: {{room_name}}
         </div>
-        <h1>
-            This is chatroom.html
-        </h1>
+
+        <form>
+            {% comment %} <textarea id="chat-text"></textarea><br> {% endcomment %}
+            <input id='input' type='text'></input>
+            <button id='submit' type='button'>Send</button>
+        </form>
+        <br><br><br>
+        <h1>Chat:</h1>
+        <br>
+        <div id="user-hello"></div>
         {{room_name|json_script:"room_name"}}
-        <script>
+
+
+
+        <script>    
+            document.querySelector('#submit').onclick = function(e){
+                const messageElem = document.querySelector('#input');
+                let messageText = messageElem.value;
+                chatSocket.send(JSON.stringify({
+                    'message':messageText
+                }));
+                messageElem.value = ''
+            }
+
             const roomName = JSON.parse(document.getElementById('room_name').textContent);
             const chatSocket = new WebSocket(
                 'ws://' +
@@ -20,7 +39,7 @@
             chatSocket.onmessage = function(e){
                 const data = JSON.parse(e.data);
                 console.log(data);
-                document.getElementById('user-hello').innerHTML = data.tester;
+                document.getElementById('user-hello').innerHTML = data.msg;
             }
         </script>
     </body>
