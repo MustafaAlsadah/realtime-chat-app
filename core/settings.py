@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-2!_!e&u6hctiw%xxf0-i4h#9$f#(%bigidyar=vxjjuybqc)c&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.herokuapp.com', '127.0.0.1'
+]
 
 
 # Application definition
@@ -127,12 +129,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('redis', 6379)],
-        },
-    },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
