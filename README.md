@@ -1,4 +1,4 @@
 # realtime-chat-app
 
 ## Live website:
-https://mymustafaapp.herokuapp.com/
+http://mymustafaapp.herokuapp.com/
